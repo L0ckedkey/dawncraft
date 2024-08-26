@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  mc:
+    image: itzg/minecraft-server:2023.8.1-java17-jdk
+    tty: true
+    stdin_open: true
+    ports:
+      - "25567:25565/tcp"
+      - "25567:25565/udp"
+    environment:
+      EULA: "TRUE"
+      ONLINE_MODE: "FALSE"
+      MAX_MEMORY: 6G
+      TYPE: FORGE
+      VERSION: 1.18.2
+      FORGE_VERSION: 40.2.7
+      # CF_SERVER_MOD: /modpacks/DawnCraft.zip
+      # GENERIC_PACK: https://edge.forgecdn.net/files/4829/880/DawnCraft%201.33%20Serverpack.zip
+      # CF_API_KEY: '$$2a$$10$$raBCiKkSXcGnres33tRtZe1S3hCH5Ho6QvL1iiTkM11Sv9FYTzJjq'
+    restart: unless-stopped
+    volumes:
+      # attach the relative directory 'data' to the container's /data path
+      - ./data:/data
+      - ./modpacks:/modpacks:ro
+
+volumes:
+  data: {}
